@@ -648,7 +648,7 @@ const initAuthActions = () => {
     if (action === "logout") {
       event.preventDefault();
       try {
-        backend?.logout();
+        window.mockBackend?.logout();
       } catch (error) {
         /* ignore */
       }
