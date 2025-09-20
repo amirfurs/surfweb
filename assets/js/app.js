@@ -338,7 +338,7 @@ const renderArticlePage = () => {
   const fallbackSlug = document.body.dataset.articleId;
   const slug = urlSlug || fallbackSlug;
   if (!slug) return;
-  const article = backend.getPostBySlug(slug);
+  const article = window.mockBackend.getPostBySlug(slug);
   const container = document.querySelector(".article-detail");
   if (!article || !container) {
     if (container) {
