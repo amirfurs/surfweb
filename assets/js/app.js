@@ -173,7 +173,7 @@ const handleFormSubmission = async (form) => {
     throw new Error("لم يتم تحديد مسار الإرسال");
   }
 
-  if (backend && endpoint.startsWith("/")) {
+  if (window.mockBackend && endpoint.startsWith("/")) {
     return Promise.resolve(invokeBackend());
   }
 
