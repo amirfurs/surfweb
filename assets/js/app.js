@@ -333,7 +333,7 @@ const renderHomePage = () => {
 };
 
 const renderArticlePage = () => {
-  if (!document.body.classList.contains("article-page") || !backend) return;
+  if (!document.body.classList.contains("article-page") || !window.mockBackend) return;
   const urlSlug = new URLSearchParams(window.location.search).get("slug");
   const fallbackSlug = document.body.dataset.articleId;
   const slug = urlSlug || fallbackSlug;
