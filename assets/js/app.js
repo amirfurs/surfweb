@@ -1,7 +1,7 @@
 ﻿const backend = window.mockBackend || null;
 
 const state = {
-  currentUser: backend ? backend.getCurrentUser() : null,
+  currentUser: null, // Will be set when backend loads
   filters: {
     category: "all",
     tag: null
