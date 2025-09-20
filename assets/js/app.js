@@ -318,12 +318,12 @@ const renderHomePage = () => {
     results.textContent = `${posts.length} ${label}`;
   }
 
-  if (backend) {
-    const trending = backend
+  if (window.mockBackend) {
+    const trending = window.mockBackend
       .getPosts({})
       .sort((a, b) => b.trendingScore - a.trendingScore)
       .slice(0, 3);
-    const recommended = backend
+    const recommended = window.mockBackend
       .getPosts({})
       .sort((a, b) => b.recommendedScore - a.recommendedScore)
       .slice(0, 3);
