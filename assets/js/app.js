@@ -6,6 +6,17 @@
   }
 };
 
+const categoryLabels = {
+  "all": "الكل",
+  "series": "السلاسل",
+  "doubts": "دفع الشبهات",
+  "prophethood": "إثبات النبوة",
+  "logic": "المنطق",
+  "theology": "بحوث عقدية", 
+  "philosophy": "قضايا فلسفية",
+  "misc": "أقسام متنوعة"
+};
+
 const storageKeys = {
   theme: "aqala-theme"
 };
