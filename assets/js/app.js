@@ -283,9 +283,9 @@ const renderArticleCard = (article) => {
 };
 
 const getFilteredPosts = () => {
-  if (!backend) return [];
+  if (!window.mockBackend) return [];
   const { category, tag } = state.filters;
-  return backend.getPosts({ category, tag });
+  return window.mockBackend.getPosts({ category, tag });
 };
 
 const renderSidebarList = (selector, items) => {
