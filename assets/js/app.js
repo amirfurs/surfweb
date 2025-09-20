@@ -410,8 +410,8 @@ const renderAdminPage = () => {
   setLocked(false);
 
   const tableBody = document.getElementById("adminArticlesTable");
-  if (tableBody && backend) {
-    const posts = backend.getPosts({});
+  if (tableBody && window.mockBackend) {
+    const posts = window.mockBackend.getPosts({});
     const formatter = new Intl.DateTimeFormat("ar-EG", {
       year: "numeric",
       month: "long",
