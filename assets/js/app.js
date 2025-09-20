@@ -457,7 +457,7 @@ const renderPollResults = (results) => {
 const initPoll = () => {
   const pollForm = document.getElementById("pollForm");
   const pollResults = document.getElementById("pollResults");
-  if (!pollForm || !pollResults || !backend) return;
+  if (!pollForm || !pollResults || !window.mockBackend) return;
   const pollId = pollForm.querySelector("[name='pollId']")?.value || "homepage-theme";
   try {
     const initial = backend.pollResults(pollId);
