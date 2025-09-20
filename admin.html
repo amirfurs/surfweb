@@ -1,0 +1,222 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم - العقلاء</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=Cairo:wght@500;700&display=swap" rel="stylesheet">
+</head>
+<body class="theme-light admin-page" data-api-base="/api">
+    <div class="admin-shell">
+        <aside class="admin-sidebar">
+            <div class="admin-brand">
+                <a href="index.html" class="admin-logo">
+                    <img src="assets/images/logo.svg" alt="شعار العقلاء">
+                    <span>العقلاء | إدارة المحتوى</span>
+                </a>
+            </div>
+            <nav>
+                <a href="#dashboard" class="active">لوحة المتابعة</a>
+                <a href="#articles-panel">المقالات</a>
+                <a href="#polls-panel">استطلاعات الرأي</a>
+                <a href="#users-panel">إدارة المستخدمين</a>
+                <button class="theme-toggle" aria-label="تبديل السمة" id="adminThemeToggle">
+                    <span class="icon-sun"></span>
+                    <span class="icon-moon"></span>
+                </button>
+            </nav>
+        </aside>
+
+        <main class="admin-main" id="dashboard">
+            <section class="admin-auth-gate" id="adminAuthGate" aria-hidden="true">
+                <div class="admin-auth-card">
+                    <div class="admin-auth-copy">
+                        <h1>مرحباً بفريق العقلاء</h1>
+                        <p>سجّل دخولك لإدارة المقالات، متابعة الأداء، وإطلاق الاستطلاعات الجديدة. إذا لم يصلك حساب بعد، تواصل مع مدير المنصة.</p>
+                        <ul>
+                            <li>إدارة شاملة للمحتوى والوسوم</li>
+                            <li>متابعة الإحصاءات والتحليلات</li>
+                            <li>التحكم في الأدوار والمساهمين</li>
+                        </ul>
+                    </div>
+                    <form class="admin-auth-form" data-endpoint="/auth/login" data-method="POST" data-success="✓ تم تسجيل الدخول" data-loading="جارٍ التحقق..." data-reset-on-success="false">
+                        <h2>تسجيل الدخول لطاقم التحرير</h2>
+                        <label>
+                            البريد الإلكتروني المهني
+                            <input type="email" name="email" autocomplete="email" placeholder="editor@aqala.com" required>
+                        </label>
+                        <label>
+                            كلمة المرور
+                            <input type="password" name="password" autocomplete="current-password" placeholder="••••••••" required>
+                        </label>
+                        <button type="submit" class="primary" data-loading="جارٍ التحقق...">دخول لوحة التحكم</button>
+                        <p class="form-status" hidden></p>
+                        <p class="admin-help">تعذّر تسجيل الدخول؟ راسل <a href="mailto:support@aqala.com">support@aqala.com</a></p>
+                    </form>
+                </div>
+            </section>
+
+            <header class="admin-header">
+                <div>
+                    <h1>لوحة التحكم</h1>
+                    <p>تابع أداء المنصة وسير العمل التحريري من مكان واحد.</p>
+                </div>
+                <div class="admin-user">
+                    <span>يرجى تسجيل الدخول</span>
+                    <button class="auth-btn" data-action="open-dashboard">تسجيل الدخول</button>
+                    <button class="ghost" data-action="logout" hidden>تسجيل خروج</button>
+                </div>
+            </header>
+
+            <section class="metrics">
+                <div class="metric-card">
+                    <span class="metric-title">مقالات منشورة</span>
+                    <strong>284</strong>
+                    <span class="metric-trend up">+12 هذا الشهر</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-title">تعليقات جديدة</span>
+                    <strong>67</strong>
+                    <span class="metric-trend neutral">مستقر</span>
+                </div>
+                <div class="metric-card">
+                    <span الأمطبق="metric-title">أعضاء نشطون</span>
+                    <strong>1,482</strong>
+                    <span class="metric-trend up">+4%</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-title">نسبة إتمام السلاسل</span>
+                    <strong>78%</strong>
+                    <span class="metric-trend up">+6%</span>
+                </div>
+            </section>
+
+            <section class="admin-panels">
+                <div class="panel" id="articles-panel">
+                    <header>
+                        <h2>إدارة المقالات</h2>
+                        <button class="primary" data-modal-target="articleModal" data-requires-auth="true">+ إضافة مقال</button>
+                    </header>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>العنوان</th>
+                                <th>التصنيف</th>
+                                <th>الحالة</th>
+                                <th>التاريخ</th>
+                                <th>الإجراءات</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminArticlesTable"></tbody>
+                    </table>
+                </div>
+
+                <div class="panel" id="polls-panel">
+                    <header>
+                        <h2>إدارة الاستطلاعات</h2>
+                        <button class="secondary" data-modal-target="pollModal" data-requires-auth="true">+ استطلاع جديد</button>
+                    </header>
+                    <div class="poll-summary">
+                        <h3>آخر استطلاع منشور</h3>
+                        <div class="results-grid">
+                            <div class="result"><span>مضيئة</span><strong>56%</strong></div>
+                            <div class="result"><span>داكنة</span><strong>31%</strong></div>
+                            <div class="result"><span>دافئة</span><strong>13%</strong></div>
+                        </div>
+                        <button class="ghost" data-action="open-dashboard">عرض التفاصيل</button>
+                    </div>
+                </div>
+
+                <div class="panel" id="users-panel">
+                    <header>
+                        <h2>أدوار المستخدمين</h2>
+                        <button class="secondary" data-modal-target="userModal" data-requires-auth="true">+ مستخدم جديد</button>
+                    </header>
+                    <ul class="roles-list">
+                        <li>
+                            <span class="role-name">مدير</span>
+                            <p>صلاحيات كاملة على المحتوى والإعدادات.</p>
+                        </li>
+                        <li>
+                            <span class="role-name">محرر</span>
+                            <p>إضافة وتحرير المقالات وإدارة التعليقات.</p>
+                        </li>
+                        <li>
+                            <span class="role-name">مساهم</span>
+                            <p>إنشاء مسودات ورفع مواد بحاجة إلى مراجعة.</p>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div class="popup" id="articleModal" role="dialog" aria-hidden="true">
+        <div class="popup-content large">
+            <button class="popup-close" data-popup-close aria-label="إغلاق">×</button>
+            <h3>إضافة مقال</h3>
+            <form class="admin-form" data-endpoint="/admin/articles" data-method="POST" data-success="✓ تم حفظ المقال" data-loading="جارٍ حفظ المقال...">
+                <label>العنوان<input type="text" name="title" required></label>
+                <label>التصنيف<select name="category" required>
+                    <option value="logic">المنطق</option>
+                    <option value="prophethood">إثبات النبوة</option>
+                    <option value="doubts">دفع الشبهات</option>
+                    <option value="philosophy">قضايا فلسفية</option>
+                    <option value="theology">بحوث عقدية</option>
+                    <option value="misc">أقسام متنوعة</option>
+                </select></label>
+                <label>الوسوم<input type="text" name="tags" placeholder="أدخل الوسوم مفصولة بفاصلة"></label>
+                <label>محرر المحتوى<textarea class="wysiwyg" name="body" placeholder="ابدأ كتابة المقال..." required></textarea></label>
+                <div class="form-actions">
+                    <button type="submit" class="primary" data-loading="جارٍ حفظ المقال...">حفظ ونشر</button>
+                    <button type="button" class="ghost" data-popup-close>إلغاء</button>
+                </div>
+                <p class="form-status" hidden></p>
+            </form>
+        </div>
+    </div>
+
+    <div class="popup" id="pollModal" role="dialog" aria-hidden="true">
+        <div class="popup-content">
+            <button class="popup-close" data-popup-close aria-label="إغلاق">×</button>
+            <h3>إنشاء استطلاع</h3>
+            <form class="admin-form" data-endpoint="/admin/polls" data-method="POST" data-success="✓ تم إنشاء الاستطلاع" data-loading="جارٍ إنشاء الاستطلاع...">
+                <label>سؤال الاستطلاع<input type="text" name="question" required></label>
+                <label>الخيارات<textarea name="options" placeholder="أدخل كل خيار في سطر منفصل" required></textarea></label>
+                <div class="form-actions">
+                    <button type="submit" class="primary" data-loading="جارٍ إنشاء الاستطلاع...">نشر</button>
+                    <button type="button" class="ghost" data-popup-close>إلغاء</button>
+                </div>
+                <p class="form-status" hidden></p>
+            </form>
+        </div>
+    </div>
+
+    <div class="popup" id="userModal" role="dialog" aria-hidden="true">
+        <div class="popup-content">
+            <button class="popup-close" data-popup-close aria-label="إغلاق">×</button>
+            <h3>إضافة مستخدم</h3>
+            <form class="admin-form" data-endpoint="/admin/users" data-method="POST" data-success="✓ تم إضافة المستخدم" data-loading="جارٍ إضافة المستخدم...">
+                <label>الاسم الكامل<input type="text" name="fullName" required></label>
+                <label>البريد الإلكتروني<input type="email" name="email" required></label>
+                <label>الدور<select name="role" required>
+                    <option value="admin">مدير</option>
+                    <option value="editor">محرر</option>
+                    <option value="contributor">مساهم</option>
+                </select></label>
+                <div class="form-actions">
+                    <button type="submit" class="primary" data-loading="جارٍ إضافة المستخدم...">حفظ</button>
+                    <button type="button" class="ghost" data-popup-close>إلغاء</button>
+                </div>
+                <p class="form-status" hidden></p>
+            </form>
+        </div>
+    </div>
+
+    <script src="assets/js/backend.js" defer></script>
+    <script src="assets/js/app.js" defer></script>
+</body>
+</html>
