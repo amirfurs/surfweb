@@ -220,23 +220,6 @@ const handleFormSubmission = async (form) => {
     throw error;
   }
 };
-  if (payload instanceof FormData) {
-    options.body = payload;
-  } else {
-    options.headers["Content-Type"] = "application/json";
-    options.body = JSON.stringify(payload);
-  }
-
-  const response = await fetch(endpoint, options);
-  const contentType = response.headers.get("content-type") || "";
-  const data = contentType.includes("application/json") ? await response.json() : await response.text();
-  if (!response.ok) {
-    const error = new Error(data?.message || "تعذّر إتمام الطلب");
-    error.payload = data;
-    throw error;
-  }
-  return data;
-};
 
 const updateAuthUI = () => {
   const authButtons = Array.from(document.querySelectorAll(".auth-btn"));
