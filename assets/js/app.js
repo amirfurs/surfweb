@@ -689,6 +689,9 @@ const initArticleRating = () => {
 };
 
 const init = () => {
+  // Update current user when backend is available
+  updateAuthState();
+  
   initThemeToggle();
   initPopups();
   initForms();
