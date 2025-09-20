@@ -140,7 +140,7 @@ const popupManager = (() => {
 })();
 
 const updateAuthState = () => {
-  state.currentUser = backend ? backend.getCurrentUser() : null;
+  state.currentUser = window.mockBackend ? window.mockBackend.getCurrentUser() : null;
 };
 
 const requireAuth = () => {
