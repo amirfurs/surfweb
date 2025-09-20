@@ -460,7 +460,7 @@ const initPoll = () => {
   if (!pollForm || !pollResults || !window.mockBackend) return;
   const pollId = pollForm.querySelector("[name='pollId']")?.value || "homepage-theme";
   try {
-    const initial = backend.pollResults(pollId);
+    const initial = window.mockBackend.pollResults(pollId);
     renderPollResults(initial);
     if (initial.hasVoted) {
       pollForm.hidden = true;
