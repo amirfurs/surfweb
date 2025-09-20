@@ -162,11 +162,11 @@ const handleFormSubmission = async (form) => {
   const payload = encoding === "form-data" ? new FormData(form) : serializeFormToJSON(form);
 
   const invokeBackend = () => {
-    if (!backend || !endpoint.startsWith("/")) {
+    if (!window.mockBackend || !endpoint.startsWith("/")) {
       throw new Error("تعذّر الاتصال بالخادم المحلي");
     }
     const plainPayload = payload instanceof FormData ? Object.fromEntries(payload) : payload;
-    return backend.processRequest(endpoint, method, plainPayload);
+    return window.mockBackend.processRequest(endpoint, method, plainPayload);
   };
 
   if (!endpoint) {
