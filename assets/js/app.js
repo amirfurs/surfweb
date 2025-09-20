@@ -202,7 +202,7 @@ const handleFormSubmission = async (form) => {
     }
     return data;
   } catch (error) {
-    if (backend && endpoint.startsWith("/")) {
+    if (window.mockBackend && endpoint.startsWith("/")) {
       return Promise.resolve(invokeBackend());
     }
     if (error.message === "Failed to fetch") {
